@@ -9,12 +9,13 @@ private:
 	int m_res_y = 4; // Y Resolution (in pixels), set to 4 by default
 	std::string m_img_type = "P3"; // Can either be P1, P2, or P3, set to P3 by default
 	int m_color_scalar = 255; // Color scale value (set to 255 by default)
-	float* m_color_buffer; // Color pointers.
+	float* m_color_buffer; // Color value pointers
 
 	Vector m_pos = Vector(0, 0, 0);
 
 	int m_res_count = m_res_x * m_res_y * 3;
 
+	// Private clamp function
 	float clamp(float val);
 public:
 	PPMImage(int xres, int yres); // constructor
@@ -34,8 +35,8 @@ public:
 	std::string getImageType();
 	Vector getPosition();
 
+	// Functions
 	bool writeImage(std::string filename); // Write to image file with specified file name
-	
-	void setPixelColor(int x, int y, float r, float g, float b);
+	void setPixelColor(int x, int y, float r, float g, float b); // Set the color of a a specific pixel
 };
 

@@ -3,27 +3,25 @@
 #include <string>
 #include <cmath>
 
+// Default construtor - sets all of the values to be 0.0f
 Vector::Vector() {
-	m_x = 0.0f; // Vector X Coord
-	m_y = 0.0f; // Vector Y Coord
-	m_z = 0.0f; // Vector Z Coord
-	m_a = 0.0f; // Additional Vector property for 4D Vectors (i.e. RGBA)
+
 }
 
+// Create a Vector with specified x and y values
 Vector::Vector(float x, float y) {
 	m_x = x; // Vector X Coord
 	m_y = y; // Vector Y Coord
-	m_z = 0.0f; // Vector Z Coord
-	m_a = 0.0f; // Additional Vector property for 4D Vectors (i.e. RGBA)
 }
 
+// Create a Vector with specified x, y, and z values
 Vector::Vector(float x, float y, float z) {
 	m_x = x; // Vector X Coord
 	m_y = y; // Vector Y Coord
 	m_z = z; // Vector Z Coord
-	m_a = 0.0f; // Additional Vector property for 4D Vectors (i.e. RGBA)
 }
 
+// Create a Vector with specified x, y, z, and a values
 Vector::Vector(float x, float y, float z, float a) {
 	m_x = x; // Vector X Coord
 	m_y = y; // Vector Y Coord
@@ -82,22 +80,28 @@ bool Vector::operator!=(const Vector& v1) {
 	else return false;
 }
 
+// Setter: set the X value of the Vector
 void Vector::setX(float x) {
 	m_x = x;
 }
 
+// Setter: set the Y value of the Vector
 void Vector::setY(float y) {
 	m_y = y;
 }
 
+// Setter: set the Z value of the Vector
 void Vector::setZ(float z) {
 	m_z = z;
 }
 
+// Setter: set the additional value of the Vector
 void Vector::setA(float a) {
 	m_a = a;
 }
 
+// Setter: multiply all values of the Vector by the given value.
+//   Also returns a Vector containing the new values
 Vector Vector::scale(float s) {
 	m_x *= s;
 	m_y *= s;
@@ -106,30 +110,38 @@ Vector Vector::scale(float s) {
 	return Vector(m_x, m_y, m_z, m_a);
 }
 
+// Getter: gets the X value of the Vector
 float Vector::getX() {
 	return m_x;
 }
 
+// Getter: gets the Y value of the Vector
 float Vector::getY() {
 	return m_y;
 }
 
+// Getter: gets the Z value of the Vector
 float Vector::getZ() {
 	return m_z;
 }
 
+// Getter: gets the additional value of the Vector
 float Vector::getA() {
 	return m_a;
 }
 
+// Returns the result of applying the pythagorean theorem of the X and Y values
 float Vector::pythagorean2D() {
 	return sqrtf(powf(m_x, 2.0f) + powf(m_y, 2.0f));
 }
 
+// Returns the result of applying the pythagorean theorem of the X, Y, and Z values
 float Vector::pythagorean3D() {
 	return sqrtf(powf(m_x, 2.0f) + powf(m_y, 2.0f) + powf(m_z, 2.0f));
 }
 
+
+// Normalizes the Vector's x and y values
 void Vector::normalize2D() {
 	float length = pythagorean2D();
 	if (length != 0.0f) { // If the length is 0, its already normalized. No need to change things.
@@ -138,6 +150,7 @@ void Vector::normalize2D() {
 	}
 }
 
+// Normalizes the Vector's X, Y, and Z values
 void Vector::normalize3D() {
 	//std::cout << "X: " << m_x << std::endl;
 	//std::cout << "Y: " << m_y << std::endl;
@@ -151,6 +164,7 @@ void Vector::normalize3D() {
 	
 }
 
+// Prints the Vectors values as a string
 std::string Vector::toString() {
 	std::string a = "(X: " + std::to_string(m_x) + ", Y: " + std::to_string(m_y) + ", Z: " + std::to_string(m_z) + ", A: " + std::to_string(m_a) + ")";
 	return a;

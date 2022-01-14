@@ -6,18 +6,22 @@
 
 #define PI 3.14159265358979323846
 
+// Returns the 2D dot product of two vectors
 float Utility::dot2D(Vector v1, Vector v2) {
 	return (v1.getX() * v2.getX()) + (v1.getY() * v2.getY());
 }
 
+// Returns the 3D dot product of two vectors
 float Utility::dot3D(Vector v1, Vector v2) {
 	return (v1.getX() * v2.getX()) + (v1.getY() * v2.getY()) + (v1.getZ() * v2.getZ());
 }
 
+// Returns the 4D dot product of two vectors
 float Utility::dot4D(Vector v1, Vector v2) {
 	return (v1.getX() * v2.getX()) + (v1.getY() * v2.getY()) + (v1.getZ() * v2.getZ()) + (v1.getA() * v2.getA());
 }
 
+// Returns the 3D cross product of two vectors
 Vector Utility::cross3D(Vector v1, Vector v2) {
 	float new_x = (v1.getY() * v2.getZ()) - (v1.getZ() * v2.getY());
 	float new_y = -1 * ((v1.getX() * v2.getZ()) - (v1.getZ() * v2.getX()));
@@ -26,14 +30,17 @@ Vector Utility::cross3D(Vector v1, Vector v2) {
 	return Vector(new_x, new_y, new_z);
 }
 
+// Converts Radians to Degrees
 float Utility::toDegrees(float rad) {
 	return (rad * 180.0f) / PI;
 }
 
+// Converts Degrees to Radians
 float Utility::toRadians(float deg) {
 	return (deg * PI) / 180.0f;
 }
 
+// Clamps a float between a specified minimum and maximums
 float Utility::clamp(float value, float min, float max) {
 	if (value < min) {
 		value = min;
@@ -47,6 +54,7 @@ float Utility::clamp(float value, float min, float max) {
 
 }
 
+// Attempt to solve a quadratic with given a, b, and c values
 bool Utility::solveQuadratic(const float& a, const float& b, const float& c, float& x0, float& x1) {
 	float discr = (b * b) - (4 * a * c);
 
@@ -64,6 +72,7 @@ bool Utility::solveQuadratic(const float& a, const float& b, const float& c, flo
 	return true;
 }
 
+// Reflection ray cast function - used with reflection items
 Vector Utility::castReflectRay(Ray ray, std::vector<Light*>* lights, std::vector<Object*>* objects, int depth) {
 	Vector view_dir = ray.getDirection();
 	view_dir.normalize3D();
@@ -71,6 +80,7 @@ Vector Utility::castReflectRay(Ray ray, std::vector<Light*>* lights, std::vector
 	IntersectInfo IsectInfo;
 	IsectInfo.t = 0;
 
+	// if the ray has its maximum # of times, return black
 	if (depth > ray.getMaxDepth()) return final_color;
 
 	for (int i = 0; i < objects->size(); i++) {
@@ -122,6 +132,7 @@ Vector Utility::castReflectRay(Ray ray, std::vector<Light*>* lights, std::vector
 	return final_color;
 }
 
+// Blend two colors and return the result
 Vector Utility::blendColors(Vector color1, Vector color2, bool useA) {
 
 	Vector temp_c1 = color1;
@@ -142,6 +153,7 @@ Vector Utility::blendColors(Vector color1, Vector color2, bool useA) {
 	return newColor;
 }
 
+// Get the reflection direciton from a given normal and light direction
 Vector Utility::getReflectionDirection(Vector surface_normal_hit, Vector light_direction) {
 	Vector R = ((surface_normal_hit * dot3D(surface_normal_hit, light_direction)) * 2.0f) - light_direction;
 	//R.normalize3D();
@@ -149,6 +161,7 @@ Vector Utility::getReflectionDirection(Vector surface_normal_hit, Vector light_d
 	return R;
 }
 
+// Returns the diffuse color gathered from the surface normal, light direction, light color, and light intensity.
 Vector Utility::diffuse(Vector surface_normal_hit, Vector light_direction, Vector light_color, float light_intensity) {
 	float lambert_cos = dot3D(surface_normal_hit, -light_direction);
 	if (lambert_cos < 0.0f) lambert_cos = 0.0f;
@@ -158,6 +171,7 @@ Vector Utility::diffuse(Vector surface_normal_hit, Vector light_direction, Vecto
 	return Vector(light_color.getX() * diffuse, light_color.getY() * diffuse, light_color.getZ() * diffuse);
 }
 
+// Returns the specular color gathered from the surface normal, light direction, reflection direction, light intensity, shininess, and view direction.
 Vector Utility::specular(Vector surface_normal_hit, Vector light_direction, Vector reflect_direction, float light_intensity, float shininess, Vector view_direction) {
 	float specular = dot3D(view_direction, reflect_direction);
 	specular = clamp(specular, 0.0f, 1.0f);
@@ -169,6 +183,7 @@ Vector Utility::specular(Vector surface_normal_hit, Vector light_direction, Vect
 	//return Vector(specular, specular, specular);
 }
 
+// Returns the refraction direction from the given incidence vector and the normal of the surface that was hit
 Vector Utility::getRefractionDirection(Vector incidence_vector, Vector surface_normal_hit, float refract_index) {
 	
 	float cosi = clamp(dot3D(incidence_vector, surface_normal_hit), -1, 1);

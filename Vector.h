@@ -4,10 +4,10 @@
 class Vector
 {
 private:
-	float m_x = 0; // Vector X Coord
-	float m_y = 0; // Vector Y Coord
-	float m_z = 0; // Vector Z Coord
-	float m_a = 0; // Additional Vector property for 4D Vectors (i.e. RGBA)
+	float m_x = 0.0f; // Vector X Coord - defaults to 0.0f
+	float m_y = 0.0f; // Vector Y Coord - defaults to 0.0f
+	float m_z = 0.0f; // Vector Z Coord - defaults to 0.0f
+	float m_a = 0.0f; // Additional Vector property for 4D Vectors (i.e. RGBA) - defaults to 0.0f
 
 public:
 	Vector(); // Constructor
@@ -47,9 +47,11 @@ public:
 	float pythagorean2D(); // Return the result of the applying the Pythagorean Theorem to the X and Y coords
 	float pythagorean3D(); // Return the result of the applying the Pythagorean Theorem to the X, Y, and Z coords
 
+	// Normalizers
 	void normalize2D();
 	void normalize3D();
 
+	// Prints out the Vector's info as a string
 	std::string toString();
 };
 

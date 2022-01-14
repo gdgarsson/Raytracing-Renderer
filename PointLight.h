@@ -7,6 +7,7 @@ class PointLight :
 private:
     //
 public:
+    // Constructors
     PointLight();
     PointLight(Vector position);
     PointLight(Vector position, Vector color);

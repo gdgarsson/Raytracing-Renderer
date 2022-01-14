@@ -4,45 +4,39 @@
 #include <iostream>
 #include "Utility.h"
 
+// Default constructor - creates a Black sphere with radius 1.0f at the origin
 Sphere::Sphere() {
-	//BaseObject();
 	setPosition(Vector());
-	m_radius = 1;
-	m_forward = Vector();
 	setColor(Vector());
 }
 
+// Create a Black sphere with radius 1.0f at a specified point in space
 Sphere::Sphere(Vector position) {
-	//Object(position)
 	setPosition(position);
-	m_radius = 1;
-	m_forward = Vector();
 	setColor(Vector());
 }
 
+// Create a sphere of a specified color with radius 1.0f at a specified point in space
 Sphere::Sphere(Vector position, Vector color) {
 	setPosition(position);
-	m_radius = 1;
-	m_forward = Vector();
 	setColor(color);
 }
 
+// Create a Black sphere with a given radius at a specified point in space
 Sphere::Sphere(float radius, Vector position) {
-	//BaseObject(position);
 	setPosition(position);
 	m_radius = radius;
-	m_forward = Vector();
 	setColor(Vector());
 }
 
+// Create a colored sphere with a given radius at a specific point in space
 Sphere::Sphere(float radius, Vector position, Vector color) {
-	//BaseObject(position);
 	setPosition(position);
 	m_radius = radius;
-	m_forward = Vector();
 	setColor(color);
 }
 
+// Create a colored sphere with a given radius at a specific point in space, facing in a particular direction
 Sphere::Sphere(float radius, Vector position, Vector color, Vector forward) {
 	setPosition(position);
 	m_radius = radius;
@@ -50,27 +44,32 @@ Sphere::Sphere(float radius, Vector position, Vector color, Vector forward) {
 	setColor(color);
 }
 
-
+// Setter: set the radius of the sphere
 void Sphere::setRadius(float new_radius) {
 	m_radius = new_radius;
 }
 
+// Setter: set the forward direction of the sphere
 void Sphere::setForward(Vector new_forward) {
 	m_forward = new_forward;
 }
 
+// Setter: multiplies the sphere's radius by a given amount
 void Sphere::scale(float scalar) {
 	m_radius *= scalar;
 }
 
+// Getter: get's the sphere's radius
 float Sphere::getRadius() {
 	return m_radius;
 }
 
+// Getter: get's the sphere's forward direction
 Vector Sphere::getForward() {
 	return m_forward;
 }
 
+// Sphere intersection test - returns true if a given ray intersects the sphere
 // This version is able to modify the t value
 bool Sphere::intersects(const Ray& ray, IntersectInfo& IsectInfo) {
 	Utility util;
@@ -90,7 +89,7 @@ bool Sphere::intersects(const Ray& ray, IntersectInfo& IsectInfo) {
 	t1 = tca + thc;
 	
 #else
-	// Analytic solution
+	// Algebraic solution
 	Vector L = ray.getOrigin() - getPosition();
 	float a = util.dot3D(ray.getDirection(), ray.getDirection());
 	float b = 2 * util.dot3D(ray.getDirection(), L);
