@@ -7,8 +7,6 @@
  of what the final product looks like (the FOV is set to 70 and each Ray can reflect/refract
  a maximum of 5 times). See: [RTXDemo1.jpeg](https://github.com/gdgarsson/Raytracing-Renderer/blob/main/RTXDemo1.jpeg). <br><br>
 
- If you want to see more of my work, please check out my [website](https://www.gdgarsson.com). 
- Additionally, I'm currently working on recreating this project and upgrading it with Vulkan, 
- so be on the lookout for that. I've got plenty of more work on the way. 
+ If you want to see more of my work, please check out my [website](https://www.gdgarsson.com).
  
  Have a great day!
